@@ -1,0 +1,17 @@
+[Unit]
+Description=HostFlow Backend (FastAPI)
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=root
+WorkingDirectory=/opt/HostFlow/backend
+Environment="PATH=/opt/HostFlow/backend/.venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ExecStart=/opt/HostFlow/backend/.venv/bin/uvicorn app.main:app --host 127.0.0.1 --port 8765 --workers 2
+Restart=on-failure
+RestartSec=5
+LimitNOFILE=65535
+
+[Install]
+WantedBy=multi-user.target
