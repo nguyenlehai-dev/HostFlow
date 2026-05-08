@@ -17,8 +17,9 @@ cd ..
 
 echo "===> Frontend: install + build"
 cd frontend
-if command -v pnpm >/dev/null; then pnpm install --frozen-lockfile=false; pnpm run build;
-elif command -v npm >/dev/null; then npm install; npm run build;
+# Prefer npm (pnpm 10+ blocks esbuild build scripts by default which breaks vite)
+if command -v npm >/dev/null; then npm install --silent; npm run build;
+elif command -v pnpm >/dev/null; then pnpm install --config.dangerously-allow-all-builds=true; pnpm run build;
 else echo "Node/npm not found. Install Node.js LTS."; exit 1; fi
 cd ..
 

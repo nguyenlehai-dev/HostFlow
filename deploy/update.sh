@@ -13,8 +13,8 @@ cd backend
 cd ..
 
 cd frontend
-if command -v pnpm >/dev/null; then pnpm install --frozen-lockfile=false; pnpm run build;
-else npm install; npm run build; fi
+if command -v npm >/dev/null; then npm install --silent; npm run build;
+else pnpm install --config.dangerously-allow-all-builds=true; pnpm run build; fi
 cd ..
 
 systemctl restart hostflow-backend
